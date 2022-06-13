@@ -34,7 +34,7 @@ namespace TelCo.ColorCoder
         {
             IIndex index = new Index(MapMajor, MapMinor);
             int majorIndex = index.GetIndex(pair.majorColor, true);
-            int minorIndex = index.GetIndex(pair.majorColor);
+            int minorIndex = index.GetIndex(pair.minorColor);
 
             if (majorIndex == -1 || minorIndex == -1)
             {

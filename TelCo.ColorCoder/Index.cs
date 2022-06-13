@@ -4,7 +4,7 @@ namespace TelCo.ColorCoder
 {
     public interface IIndex
     {
-        int GetIndex(Color color, bool isMajorColor = true);
+        int GetIndex(Color color, bool isMajorColor=false);
     }
 
     public class Index: IIndex
@@ -19,7 +19,7 @@ namespace TelCo.ColorCoder
             MapMinor = mapMinor;
         }
 
-        public int GetIndex(Color color, bool isMajorColor = true)
+        public int GetIndex(Color color, bool isMajorColor = false)
         {
             int index = -1;
 
