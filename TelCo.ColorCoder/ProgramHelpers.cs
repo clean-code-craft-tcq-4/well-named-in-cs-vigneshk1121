@@ -9,34 +9,32 @@ namespace TelCo.ColorCoder
 
         public Color[] MapMinor;
 
-        public ProgramHelpers()
+        public ProgramHelpers(Color[] mapMajor, Color[] mapMinor)
         {
-            MapMajor = new Color[] { Color.White, Color.Red, Color.Black, Color.Yellow, Color.Violet };
-            MapMinor = new Color[] { Color.Blue, Color.Orange, Color.Green, Color.Brown, Color.SlateGray };
+            MapMajor = mapMajor;
+            MapMinor = mapMinor;
         }
 
         public ColorPair GetColorFromPairNumber(int pairNumber)
         {
-            int minorSize = MapMinor.Length;
-            int majorSize = MapMajor.Length;
-            if (pairNumber < 1 || pairNumber > minorSize * majorSize)
+            if (pairNumber < 1 || pairNumber > MapMinor.Length * MapMajor.Length)
             {
                 throw new ArgumentOutOfRangeException(
                     string.Format("Argument PairNumber:{0} is outside the allowed range", pairNumber));
             }
 
             int zeroBasedPairNumber = pairNumber - 1;
-            int majorIndex = zeroBasedPairNumber / minorSize;
-            int minorIndex = zeroBasedPairNumber % minorSize;
+            int majorIndex = zeroBasedPairNumber / MapMinor.Length;
+            int minorIndex = zeroBasedPairNumber % MapMinor.Length;
 
             return new ColorPair() { majorColor = MapMajor[majorIndex], minorColor = MapMinor[minorIndex] };
         }
 
         public int GetPairNumberFromColor(ColorPair pair)
         {
-            int majorIndex = GetIndex(pair.majorColor, true);
-
-            int minorIndex = GetIndex(pair.majorColor);
+            IIndex index = new Index(MapMajor, MapMinor);
+            int majorIndex = index.GetIndex(pair.majorColor, true);
+            int minorIndex = index.GetIndex(pair.majorColor);
 
             if (majorIndex == -1 || minorIndex == -1)
             {
@@ -45,23 +43,6 @@ namespace TelCo.ColorCoder
             }
 
             return (majorIndex * MapMinor.Length) + (minorIndex + 1);
-        }
-
-        public int GetIndex(Color color, bool isMajorColor = true)
-        {
-            int index = -1;
-
-            Color[] colors = isMajorColor ? MapMajor : MapMajor;
-
-            for (int i = 0; i < colors.Length; i++)
-            {
-                if (colors[i] == color)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            return index;
         }
     }
 }
