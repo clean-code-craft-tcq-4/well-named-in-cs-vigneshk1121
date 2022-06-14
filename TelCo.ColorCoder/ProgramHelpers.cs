@@ -44,5 +44,14 @@ namespace TelCo.ColorCoder
 
             return (majorIndex * MapMinor.Length) + (minorIndex + 1);
         }
+
+        public void PrintColorCoding()
+        {
+            for (int i = 0; i < MapMinor.Length * MapMajor.Length; i++)
+            {
+                var value = GetColorFromPairNumber(i + 1);
+                Console.WriteLine("Pair Number: {0},Colors: {1}\n", i+1, value);
+            }
+        }
     }
 }

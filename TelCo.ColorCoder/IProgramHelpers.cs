@@ -9,5 +9,7 @@ namespace TelCo.ColorCoder
         ColorPair GetColorFromPairNumber(int pairNumber);
 
         int GetPairNumberFromColor(ColorPair pair);
+
+        void PrintColorCoding();
     }
 }
